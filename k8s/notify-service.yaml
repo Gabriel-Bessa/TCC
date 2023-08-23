@@ -1,0 +1,40 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: service-notify-service
+spec:
+  selector:
+    name: deployment-notify-service
+  ports:
+    - port: 8080
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deployment-notify-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: deployment-notify-service
+  template:
+    metadata:
+      labels:
+        name: deployment-notify-service
+    spec:
+      containers:
+        - name: notify-service
+          image: gabrielbessadev/notify-service:0.0.1-SNAPSHOT
+          imagePullPolicy: "Always"
+          ports:
+            - containerPort: 8080
+          env:
+            - name: spring.data.redis.password
+              valueFrom:
+                secretKeyRef:
+                  name: notify-redis-credentials
+                  key: password
+            - name: spring.data.redis.port
+              value: '6379'
+            - name: spring.data.redis.host
+              value: notify-redis

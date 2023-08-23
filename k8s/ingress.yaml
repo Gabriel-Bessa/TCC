@@ -1,0 +1,49 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: nginx
+  annotations:
+    ingress.kubernetes.io/ssl-redirect: "false"
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: "api.financeiro-bessatech.com.br"
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: service-bessatech-financial-service
+            port:
+              number: 8080
+  - host: "financeiro-bessatech.com.br"
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: service-bessatech-financial-frontend
+            port:
+              number: 80
+  - host: "tcc.com.br"
+    http:
+      paths:
+      - path: /api/notify
+        pathType: Prefix
+        backend:
+          service:
+            name: service-notify-service
+            port:
+              number: 8080
+  - host: "tcc.com.br"
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: service-notify-frontend
+            port:
+              number: 80

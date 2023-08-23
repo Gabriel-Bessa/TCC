@@ -1,0 +1,72 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: statefulset-notify-mongo
+spec:
+  serviceName: service-notify-mongo
+  replicas: 1
+  selector:
+    matchLabels:
+      app: service-notify-mongo
+  template:
+    metadata:
+      labels:
+        app: service-notify-mongo
+        selector: service-notify-mongo
+    spec:
+      containers:
+      - name: notify-mongo
+        image: mongo:5.0
+        ports:
+          - containerPort: 27017
+        env:
+          - name: MONGO_INITDB_DATABASE
+            valueFrom:
+              secretKeyRef:
+                key: database
+                name: notify-mongo-credentials
+          - name: MONGO_INITDB_ROOT_USERNAME
+            valueFrom:
+              secretKeyRef:
+                key: user
+                name: notify-mongo-credentials
+          - name: MONGO_INITDB_ROOT_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                key: password
+                name: notify-mongo-credentials
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "100m"
+          limits:
+            memory: "512Mi"
+            cpu: "500m"
+      volumes:
+        - name: notify-mongodb-data
+          persistentVolumeClaim:
+            claimName: notify-mongodb-data
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: service-notify-mongo
+spec:
+  ports:
+    - name: mongo
+      port: 27017
+      targetPort: 27017
+  type: ClusterIP
+  selector:
+    app: notify-mongo-volume
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: notify-mongodb-data
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi

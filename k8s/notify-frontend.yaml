@@ -1,0 +1,30 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: service-notify-frontend
+spec:
+  selector:
+    name: deployment-notify-frontend
+  ports:
+    - port: 80
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deployment-notify-frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: deployment-notify-frontend
+  template:
+    metadata:
+      labels:
+        name: deployment-notify-frontend
+    spec:
+      containers:
+      - name: notify-frontend
+        image: gabrielbessadev/notify-frontend:0.0.1-SNAPSHOT
+        imagePullPolicy: "Always"
+        ports:
+        - containerPort: 80

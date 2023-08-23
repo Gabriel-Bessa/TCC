@@ -1,0 +1,40 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: notify-redis
+spec:
+  type: ClusterIP
+  ports:
+    - port: 6379
+  selector:
+    name: notify-redis-deployment
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: notify-redis-deployment
+  labels:
+    name: notify-redis-deployment
+spec:
+  selector:
+    matchLabels:
+      name: notify-redis-deployment
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels: 
+        name: notify-redis-deployment
+    spec:
+      containers:
+        - name: db-redis
+          image: redis:5-alpine
+          imagePullPolicy: "IfNotPresent"
+          ports:
+            - containerPort: 6379
+              name: redis
+          volumeMounts:
+            - mountPath: /var/lib/redis/data
+              name: redis-persistance-storage
+      volumes:
+        - name: redis-persistance-storage
