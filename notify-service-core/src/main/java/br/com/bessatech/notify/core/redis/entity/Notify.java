@@ -1,4 +1,4 @@
-package br.com.bessatech.notify.core.entity;
+package br.com.bessatech.notify.core.redis.entity;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -29,5 +29,4 @@ public class Notify implements Serializable {
     private String text;
     private String type;
     private LocalDateTime expirationDate;
-
 }

@@ -1,8 +1,7 @@
-package br.com.bessatech.notify.core.dto;
+package br.com.bessatech.notify.config.exceptions;
 
 import java.io.Serial;
 import java.io.Serializable;
-import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,11 +11,10 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class SimpleNotifyDTO implements Serializable {
+public class FieldErrorDTO implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
 
-    private String text;
-    private String type;
-    private LocalDateTime expirationDate;
+    private String field;
+    private String msg;
 }

@@ -1,7 +1,7 @@
 package br.com.bessatech.notify.mapper;
 
-import br.com.bessatech.notify.core.dto.SimpleNotifyDTO;
-import br.com.bessatech.notify.core.entity.Notify;
+import br.com.bessatech.notify.core.redis.dto.SimpleNotifyDTO;
+import br.com.bessatech.notify.core.redis.entity.Notify;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")

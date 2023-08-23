@@ -1,8 +1,7 @@
 package br.com.bessatech.notify.controller;
 
-import br.com.bessatech.notify.core.dto.SimpleNotifyDTO;
+import br.com.bessatech.notify.core.redis.dto.SimpleNotifyDTO;
 import br.com.bessatech.notify.service.NotifyService;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,10 +17,15 @@ public class NotifyController {
 
     private final NotifyService service;
 
-    @PostMapping("/sync")
-    public void syncMessage(@RequestBody SimpleNotifyDTO notify) throws JsonProcessingException {
+    @PostMapping("/trigger/sync")
+    public void triggerSyncMessage(@RequestBody SimpleNotifyDTO notify) {
         log.info("REST request to create notify");
-        service.createNotify(notify);
+        service.createNotifyTrigger(notify);
     }
 
+    @PostMapping("/schedule/sync")
+    public void scheduleMessage(@RequestBody SimpleNotifyDTO notify) {
+        log.info("REST request to create notify");
+        service.createNotifyTrigger(notify);
+    }
 }

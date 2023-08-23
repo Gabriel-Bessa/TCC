@@ -1,4 +1,13 @@
 spring:
+  cache:
+    type: redis
   data:
     redis:
-      password: 123456
+      host: localhost
+    mongodb:
+      host: localhost
+      port: 27017
+      username: GzeZ15s1EPIHkekCLRa3m1Vm
+      password: SYw5vVK4GjTXbLNpUio8vpm8
+      database: notify-service
+      authentication-database: admin

@@ -1,4 +1,9 @@
 spring:
+  messages:
+    basename: msg_success, msg_error
   cache:
     redis:
       time-to-live: 1
+server:
+  servlet:
+    context-path: /api/notify
