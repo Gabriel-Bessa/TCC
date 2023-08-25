@@ -7,16 +7,17 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      app: service-notify-mongo
+      name: statefulset-notify-mongo
   template:
     metadata:
       labels:
-        app: service-notify-mongo
-        selector: service-notify-mongo
+        name: statefulset-notify-mongo
+        selector: statefulset-notify-mongo
     spec:
       containers:
       - name: notify-mongo
         image: mongo:5.0
+        imagePullPolicy: "IfNotPresent"
         ports:
           - containerPort: 27017
         env:
@@ -52,13 +53,13 @@ kind: Service
 metadata:
   name: service-notify-mongo
 spec:
+  selector:
+    name: statefulset-notify-mongo
   ports:
     - name: mongo
       port: 27017
       targetPort: 27017
   type: ClusterIP
-  selector:
-    app: notify-mongo-volume
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim

@@ -37,4 +37,20 @@ spec:
             - name: spring.data.redis.port
               value: '6379'
             - name: spring.data.redis.host
-              value: notify-redis
+              value: service-notify-redis
+            - name: spring.data.mongodb.host
+              value: service-notify-mongo
+            - name: spring.data.mongodb.database
+              value: notify-service
+            - name: spring.data.mongodb.authentication-database
+              value: admin
+            - name: spring.data.mongodb.username
+              valueFrom:
+                secretKeyRef:
+                  name: notify-mongo-credentials
+                  key: user
+            - name: spring.data.mongodb.password
+              valueFrom:
+                secretKeyRef:
+                  name: notify-mongo-credentials
+                  key: password

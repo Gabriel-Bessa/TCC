@@ -2,7 +2,7 @@ package br.com.bessatech.notify.service;
 
 import br.com.bessatech.notify.config.exceptions.BusinessException;
 import br.com.bessatech.notify.core.redis.dto.SimpleNotifyDTO;
-import br.com.bessatech.notify.core.redis.entity.Notify;
+import br.com.bessatech.notify.core.redis.entity.Notification;
 import br.com.bessatech.notify.core.redis.repository.NotifyRepository;
 import br.com.bessatech.notify.mapper.NotifyMapper;
 import java.time.LocalDateTime;
@@ -25,7 +25,7 @@ public class NotifyService {
         if (LocalDateTime.now().plusSeconds(5).isAfter(notifyDto.getExpirationDate())) {
             throw new BusinessException("notify_exception", "notify.datetime.invalid");
         }
-        Notify notify = mapper.toEntity(notifyDto);
+        Notification notify = mapper.toEntity(notifyDto);
         notify.setId(UUID.randomUUID().toString());
         notify.setExpires(LocalDateTime.now().until(notifyDto.getExpirationDate(), ChronoUnit.MILLIS));
         repository.save(notify);

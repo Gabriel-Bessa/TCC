@@ -1,8 +1,10 @@
 package br.com.bessatech.notify.core.redis.entity;
 
+import br.com.bessatech.notify.core.commons.enuns.NotificationType;
 import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -17,8 +19,8 @@ import org.springframework.data.redis.core.index.Indexed;
 @Setter
 @Builder
 @AllArgsConstructor
-@RedisHash("notify-trigger")
-public class Notify implements Serializable {
+@RedisHash("notification-trigger")
+public class Notification implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
     @Id
@@ -29,4 +31,5 @@ public class Notify implements Serializable {
     private String text;
     private String type;
     private LocalDateTime expirationDate;
+    private Set<NotificationType> types;
 }

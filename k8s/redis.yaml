@@ -1,40 +1,55 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: statefulset-notify-redis
+spec:
+  serviceName: service-notify-redis
+  replicas: 1
+  selector:
+    matchLabels:
+      name: statefulset-notify-redis
+  template:
+    metadata:
+      labels:
+        name: statefulset-notify-redis
+        selector: statefulset-notify-redis
+    spec:
+      containers:
+      - name: db-redis
+        image: redis:5-alpine
+        imagePullPolicy: "IfNotPresent"
+        ports:
+          - containerPort: 6379
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "100m"
+          limits:
+            memory: "512Mi"
+            cpu: "500m"
+      volumes:
+        - name: notify-redis-data
+          persistentVolumeClaim:
+            claimName: notify-redis-data
+---
 apiVersion: v1
 kind: Service
 metadata:
-  name: notify-redis
+  name: service-notify-redis
 spec:
-  type: ClusterIP
+  selector:
+    name: statefulset-notify-redis
   ports:
-    - port: 6379
-  selector:
-    name: notify-redis-deployment
+    - name: redis
+      port: 6379
 ---
-apiVersion: apps/v1
-kind: Deployment
+apiVersion: v1
+kind: PersistentVolumeClaim
 metadata:
-  name: notify-redis-deployment
-  labels:
-    name: notify-redis-deployment
+  name: notify-redis-data
 spec:
-  selector:
-    matchLabels:
-      name: notify-redis-deployment
-  strategy:
-    type: Recreate
-  template:
-    metadata:
-      labels: 
-        name: notify-redis-deployment
-    spec:
-      containers:
-        - name: db-redis
-          image: redis:5-alpine
-          imagePullPolicy: "IfNotPresent"
-          ports:
-            - containerPort: 6379
-              name: redis
-          volumeMounts:
-            - mountPath: /var/lib/redis/data
-              name: redis-persistance-storage
-      volumes:
-        - name: redis-persistance-storage
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
