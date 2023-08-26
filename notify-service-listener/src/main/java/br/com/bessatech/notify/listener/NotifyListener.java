@@ -7,7 +7,6 @@ import br.com.bessatech.notify.core.redis.entity.Notification;
 import java.time.LocalDateTime;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
 import org.springframework.context.event.EventListener;
@@ -34,7 +33,7 @@ public class NotifyListener {
     }
 
     @AfterReturning(value = "execution(* br.com.bessatech.notify.core.redis.repository.NotifyRepository.save(..))", returning = "result")
-    public void syncElasticPurchase(JoinPoint jp, Object result) {
+    public void syncElasticPurchase(Object result) {
         log.info("Double save in mongo database");
         Notification redisNotification = (Notification) result;
         saveRedisNotificationInMongo(redisNotification);

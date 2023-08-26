@@ -1,5 +1,6 @@
 package br.com.bessatech.notify.controller;
 
+import br.com.bessatech.notify.config.ResponseDTO;
 import br.com.bessatech.notify.core.redis.dto.SimpleNotifyDTO;
 import br.com.bessatech.notify.service.NotifyService;
 import lombok.RequiredArgsConstructor;
@@ -18,14 +19,14 @@ public class NotifyController {
     private final NotifyService service;
 
     @PostMapping("/trigger/sync")
-    public void triggerSyncMessage(@RequestBody SimpleNotifyDTO notify) {
+    public ResponseDTO triggerSyncMessage(@RequestBody SimpleNotifyDTO notify) {
         log.info("REST request to create notify");
-        service.createNotifyTrigger(notify);
+        return service.createNotifyTrigger(notify);
     }
 
     @PostMapping("/schedule/sync")
-    public void scheduleMessage(@RequestBody SimpleNotifyDTO notify) {
+    public ResponseDTO scheduleMessage(@RequestBody SimpleNotifyDTO notify) {
         log.info("REST request to create notify");
-        service.createNotifyTrigger(notify);
+        return service.createNotifyTrigger(notify);
     }
 }
