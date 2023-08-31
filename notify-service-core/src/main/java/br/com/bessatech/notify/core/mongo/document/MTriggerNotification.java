@@ -2,6 +2,7 @@ package br.com.bessatech.notify.core.mongo.document;
 
 import br.com.bessatech.notify.core.commons.enuns.NotificationStatus;
 import br.com.bessatech.notify.core.commons.enuns.NotificationType;
+import br.com.bessatech.notify.core.commons.interfaces.BasicNotification;
 import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -14,7 +15,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Getter
 @Setter
 @Document("notification-trigger")
-public class MTriggerNotification implements Serializable {
+public class MTriggerNotification implements Serializable, BasicNotification {
     @Serial
     private static final long serialVersionUID = 1L;
     @Id

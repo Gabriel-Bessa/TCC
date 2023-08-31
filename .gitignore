@@ -53,3 +53,5 @@ target/
 *.zip
 *.tar.gz
 *.rar
+
+deploy.sh

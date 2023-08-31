@@ -1,0 +1,33 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: service-notify-email-service
+spec:
+  selector:
+    name: deployment-notify-email-service
+  ports:
+    - port: 3000
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deployment-notify-email-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: deployment-notify-email-service
+  template:
+    metadata:
+      labels:
+        name: deployment-notify-email-service
+    spec:
+      containers:
+        - name: notify-email-service
+          image: gabrielbessadev/notify-email-service:0.0.1-SNAPSHOT
+          imagePullPolicy: "Always"
+          ports:
+            - containerPort: 3000
+          env:
+            - name: TZ
+              value: America/Sao_Paulo

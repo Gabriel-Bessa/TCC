@@ -56,3 +56,11 @@ spec:
                 secretKeyRef:
                   name: notify-mongo-credentials
                   key: password
+            - name: spring.rabbitmq.host
+              value: service-notify-rabbit
+            - name: spring.rabbitmq.username
+              value: guest
+            - name: spring.rabbitmq.password
+              value: guest
+            - name: spring.rabbitmq.port
+              value: '5672'
