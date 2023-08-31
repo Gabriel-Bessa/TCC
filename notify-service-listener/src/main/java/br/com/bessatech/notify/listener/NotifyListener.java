@@ -12,6 +12,7 @@ import org.aspectj.lang.annotation.Aspect;
 import org.springframework.context.event.EventListener;
 import org.springframework.data.redis.core.RedisKeyExpiredEvent;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 @Slf4j
 @Aspect
@@ -21,6 +22,7 @@ public class NotifyListener {
     private static final String targetKeyspace = "notification-trigger";
     private final MTriggerNotifyRepository mTriggerNotifyRepository;
 
+    @Transactional
     @EventListener
     public void triggerNotify(RedisKeyExpiredEvent<Notification> expiredNotify) {
         String keyspace = expiredNotify.getKeyspace();

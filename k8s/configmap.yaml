@@ -20,3 +20,13 @@ data:
   user: R3plWjE1czFFUElIa2VrQ0xSYTNtMVZt
   database: bm90aWZ5X3NlcnZpY2U=
 type: Opaque
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: notify-rabbit-credentials
+data:
+  password: U1l3NXZWSzRHalRYYkxOcFVpbzh2cG04
+  user: R3plWjE1czFFUElIa2VrQ0xSYTNtMVZt
+  database: bm90aWZ5X3NlcnZpY2U=
+type: Opaque

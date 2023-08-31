@@ -20,7 +20,6 @@ public class MTriggerNotification implements Serializable {
     @Id
     private String id;
     private String text;
-    private String type;
     private LocalDateTime expirationDate;
     private Set<NotificationType> types;
     private NotificationStatus status;

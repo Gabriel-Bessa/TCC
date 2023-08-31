@@ -26,6 +26,7 @@
 		<module>notify-service-api</module>
 		<module>notify-service-core</module>
 		<module>notify-service-listener</module>
+		<module>notify-service-producer</module>
 	</modules>
 
 	<dependencies>

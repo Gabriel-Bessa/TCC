@@ -10,33 +10,45 @@
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>notify-service-listener</artifactId>
+    <artifactId>notify-service-producer</artifactId>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
-        <notify-service-core.version>0.0.1-SNAPSHOT</notify-service-core.version>
-        <notify-service-producer.version>0.0.1-SNAPSHOT</notify-service-producer.version>
+        <mapstruct.version>1.4.2.Final</mapstruct.version>
+        <jedis.version>3.3.0</jedis.version>
+        <spring-cloud.version>2022.0.0-RC2</spring-cloud.version>
     </properties>
 
     <dependencies>
-        <!-- Internal Dependencies -->
         <dependency>
-            <groupId>br.com.bessatech.notify</groupId>
-            <artifactId>notify-service-core</artifactId>
-            <version>${notify-service-core.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>br.com.bessatech.notify</groupId>
-            <artifactId>notify-service-producer</artifactId>
-            <version>${notify-service-core.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-aop</artifactId>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-stream-rabbit</artifactId>
         </dependency>
     </dependencies>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring-cloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <repositories>
+        <repository>
+            <id>spring-milestones</id>
+            <name>Spring Milestones</name>
+            <url>https://repo.spring.io/milestone</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
 
     <build>
         <plugins>

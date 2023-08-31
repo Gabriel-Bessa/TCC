@@ -9,5 +9,10 @@ spring:
       port: 27017
       username: GzeZ15s1EPIHkekCLRa3m1Vm
       password: SYw5vVK4GjTXbLNpUio8vpm8
-      database: notify-service
+      database: notify_service
       authentication-database: admin
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest

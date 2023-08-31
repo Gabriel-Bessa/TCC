@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: statefulset-notify-rabbit
+spec:
+  serviceName: service-notify-rabbit
+  replicas: 1
+  selector:
+    matchLabels:
+      name: statefulset-notify-rabbit
+  template:
+    metadata:
+      labels:
+        name: statefulset-notify-rabbit
+        selector: statefulset-notify-rabbit
+    spec:
+      containers:
+      - name: notify-rabbit
+        image: rabbitmq:management
+        imagePullPolicy: "IfNotPresent"
+        ports:
+        - containerPort: 25672
+        - containerPort: 5672
+        - containerPort: 4369
+        - containerPort: 15672
+      volumes:
+        - name: notify-rabbit-data
+          persistentVolumeClaim:
+            claimName: notify-rabbit-data
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: service-notify-rabbit
+spec:
+  selector:
+    name: statefulset-notify-rabbit
+  ports:
+    - name: rabbit
+      port: 5672
+      targetPort: 5672
+  type: ClusterIP
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: notify-rabbit-data
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
