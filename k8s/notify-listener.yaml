@@ -1,0 +1,83 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: service-notify-listener
+spec:
+  selector:
+    name: deployment-notify-listener
+  ports:
+    - port: 8081
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deployment-notify-listener
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: deployment-notify-listener
+  template:
+    metadata:
+      labels:
+        name: deployment-notify-listener
+    spec:
+      containers:
+        - name: notify-listener
+          image: gabrielbessadev/notify-listener:0.0.1-SNAPSHOT
+          imagePullPolicy: "Always"
+          ports:
+            - containerPort: 8081
+          env:
+            - name: TZ
+              value: America/Sao_Paulo
+            - name: SOCKET_URL
+              value: http://socket.tcc.com.br
+            - name: GIN_MODE
+              value: 'release'
+            - name: PORT
+              value: '8081'
+            - name: REDIS_PORT
+              value: '6379'
+            - name: REDIS_HOST
+              value: service-notify-redis
+            - name: MONGO_HOST
+              value: service-notify-mongo
+            - name: MONGO_COLLECTION
+              value: notify-service
+            - name: MONGO_USER
+              valueFrom:
+                secretKeyRef:
+                  name: notify-mongo-credentials
+                  key: user
+            - name: MONGO_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: notify-mongo-credentials
+                  key: password
+          resources:
+            requests:
+              memory: "1Mi"
+              cpu: "10m"
+            limits:
+              memory: "20Mi"
+              cpu: "300m"
+---
+#apiVersion: autoscaling/v2
+#kind: HorizontalPodAutoscaler
+#metadata:
+#  name: notify-listener-hpa
+#spec:
+#  scaleTargetRef:
+#    apiVersion: apps/v1
+#    kind: Deployment
+#    name: deployment-notify-listener
+#  minReplicas: 1
+#  maxReplicas: 10
+#  metrics:
+#    - type: Resource
+#      resource:
+#        name: cpu
+#        target:
+#          type: Utilization
+#          averageUtilization: 10 #60

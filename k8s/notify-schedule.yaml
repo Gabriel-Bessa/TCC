@@ -1,38 +1,36 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: service-notify-service
+  name: service-notify-schedule
 spec:
   selector:
-    name: deployment-notify-service
+    name: deployment-notify-schedule
   ports:
     - port: 8080
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: deployment-notify-service
+  name: deployment-notify-schedule
 spec:
   replicas: 1
   selector:
     matchLabels:
-      name: deployment-notify-service
+      name: deployment-notify-schedule
   template:
     metadata:
       labels:
-        name: deployment-notify-service
+        name: deployment-notify-schedule
     spec:
       containers:
-        - name: notify-service
-          image: gabrielbessadev/notify-service:0.0.1-SNAPSHOT
+        - name: notify-schedule
+          image: gabrielbessadev/notify-schedule:0.0.1-SNAPSHOT
           imagePullPolicy: "Always"
           ports:
             - containerPort: 8080
           env:
             - name: TZ
               value: America/Sao_Paulo
-            - name: notify.socket.url
-              value: http://socket.tcc.com.br/
             - name: spring.data.redis.password
               valueFrom:
                 secretKeyRef:
@@ -77,24 +75,5 @@ spec:
               memory: "400Mi"
               cpu: "100m"
             limits:
-              memory: "600Mi"
+              memory: "6000Mi"
               cpu: "300m"
----
-apiVersion: autoscaling/v2
-kind: HorizontalPodAutoscaler
-metadata:
-  name: notify-service-hpa
-spec:
-  scaleTargetRef:
-    apiVersion: apps/v1
-    kind: Deployment
-    name: deployment-notify-service
-  minReplicas: 1
-  maxReplicas: 10
-  metrics:
-    - type: Resource
-      resource:
-        name: cpu
-        target:
-          type: Utilization
-          averageUtilization: 10 #60

@@ -16,7 +16,7 @@
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
         <notify-service-core.version>0.0.1-SNAPSHOT</notify-service-core.version>
-        <notify-service-producer.version>0.0.1-SNAPSHOT</notify-service-producer.version>
+        <notify-service-integration.version>0.0.1-SNAPSHOT</notify-service-integration.version>
     </properties>
 
     <dependencies>
@@ -28,13 +28,8 @@
         </dependency>
         <dependency>
             <groupId>br.com.bessatech.notify</groupId>
-            <artifactId>notify-service-producer</artifactId>
-            <version>${notify-service-core.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-aop</artifactId>
+            <artifactId>notify-service-integration</artifactId>
+            <version>${notify-service-integration.version}</version>
         </dependency>
     </dependencies>
 

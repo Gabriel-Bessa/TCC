@@ -1,5 +1,6 @@
-package br.com.bessatech.notify.mapper;
+package br.com.bessatech.notify.core.mapper;
 
+import br.com.bessatech.notify.core.mongo.document.MSchedulerNotification;
 import br.com.bessatech.notify.core.redis.dto.SimpleNotifyDTO;
 import br.com.bessatech.notify.core.redis.entity.Notification;
 import org.mapstruct.Mapper;
@@ -8,5 +9,6 @@ import org.mapstruct.Mapper;
 public interface NotifyMapper {
 
     Notification toEntity(SimpleNotifyDTO dto);
+    MSchedulerNotification toMSchedulerNotification(SimpleNotifyDTO dto);
 
 }

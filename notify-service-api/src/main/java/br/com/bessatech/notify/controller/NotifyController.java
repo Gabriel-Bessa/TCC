@@ -20,13 +20,13 @@ public class NotifyController {
 
     @PostMapping("/trigger/sync")
     public ResponseDTO triggerSyncMessage(@RequestBody SimpleNotifyDTO notify) {
-        log.info("REST request to create notify");
+        log.info("[NotifyController::triggerSyncMessage] REST request to create notify for: {}", notify.getExpirationDate());
         return service.createNotifyTrigger(notify);
     }
 
     @PostMapping("/schedule/sync")
     public ResponseDTO scheduleMessage(@RequestBody SimpleNotifyDTO notify) {
         log.info("REST request to create notify");
-        return service.createNotifyTrigger(notify);
+        return service.createNotifyScheduler(notify);
     }
 }

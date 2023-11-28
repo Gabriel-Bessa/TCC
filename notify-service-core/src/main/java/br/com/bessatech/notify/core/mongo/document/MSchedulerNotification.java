@@ -16,14 +16,13 @@ import org.springframework.data.mongodb.core.mapping.FieldType;
 
 @Getter
 @Setter
-@Document("notification-trigger")
-public class MTriggerNotification implements Serializable, BasicNotification {
+@Document("notification-scheduler")
+public class MSchedulerNotification implements Serializable, BasicNotification {
     @Serial
     private static final long serialVersionUID = 1L;
     @Id
     @Field(targetType = FieldType.OBJECT_ID)
     private String id;
-    private String redisId;
     private String text;
     private LocalDateTime expirationDate;
     private Set<NotificationType> types;

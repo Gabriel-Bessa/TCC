@@ -28,3 +28,6 @@ spec:
         imagePullPolicy: "Always"
         ports:
         - containerPort: 80
+        env:
+          - name: TZ
+            value: America/Sao_Paulo

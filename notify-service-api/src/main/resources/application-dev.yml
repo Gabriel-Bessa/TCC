@@ -11,8 +11,7 @@ spring:
       password: SYw5vVK4GjTXbLNpUio8vpm8
       database: notify_service
       authentication-database: admin
-  rabbitmq:
-    host: localhost
-    port: 5672
-    username: guest
-    password: guest
+
+notify:
+  socket:
+    url: localhost:3000

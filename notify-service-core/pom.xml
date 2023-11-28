@@ -17,6 +17,7 @@
         <maven.compiler.target>17</maven.compiler.target>
         <mapstruct.version>1.4.2.Final</mapstruct.version>
         <jedis.version>3.3.0</jedis.version>
+        <mapstruct.version>1.4.2.Final</mapstruct.version>
     </properties>
 
     <dependencies>
@@ -29,6 +30,13 @@
         <dependency>
             <groupId>org.springframework.data</groupId>
             <artifactId>spring-data-mongodb</artifactId>
+        </dependency>
+
+        <!--  Mapstruct  -->
+        <dependency>
+            <groupId>org.mapstruct</groupId>
+            <artifactId>mapstruct</artifactId>
+            <version>${mapstruct.version}</version>
         </dependency>
     </dependencies>
 

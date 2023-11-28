@@ -22,4 +22,5 @@ public class SimpleNotifyDTO implements Serializable {
     private String type;
     private LocalDateTime expirationDate;
     private Set<NotificationType> types;
+    private Integer quantity;
 }

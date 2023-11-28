@@ -10,15 +10,13 @@
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>notify-service-producer</artifactId>
+    <artifactId>notify-service-integration</artifactId>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
-        <mapstruct.version>1.4.2.Final</mapstruct.version>
-        <jedis.version>3.3.0</jedis.version>
-        <spring-cloud.version>2022.0.0-RC2</spring-cloud.version>
         <notify-service-core.version>0.0.1-SNAPSHOT</notify-service-core.version>
+        <spring-cloud.version>2022.0.3</spring-cloud.version>
     </properties>
 
     <dependencies>
@@ -28,9 +26,10 @@
             <artifactId>notify-service-core</artifactId>
             <version>${notify-service-core.version}</version>
         </dependency>
+
         <dependency>
             <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-stream-rabbit</artifactId>
+            <artifactId>spring-cloud-starter-openfeign</artifactId>
         </dependency>
     </dependencies>
 
@@ -45,17 +44,6 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
-
-    <repositories>
-        <repository>
-            <id>spring-milestones</id>
-            <name>Spring Milestones</name>
-            <url>https://repo.spring.io/milestone</url>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </repository>
-    </repositories>
 
     <build>
         <plugins>

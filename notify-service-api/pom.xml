@@ -15,9 +15,9 @@
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
-        <mapstruct.version>1.4.2.Final</mapstruct.version>
         <notify-service-core.version>0.0.1-SNAPSHOT</notify-service-core.version>
         <notify-service-listener.version>0.0.1-SNAPSHOT</notify-service-listener.version>
+        <notify-service-integration.version>0.0.1-SNAPSHOT</notify-service-integration.version>
     </properties>
 
     <dependencies>
@@ -32,12 +32,15 @@
             <artifactId>notify-service-listener</artifactId>
             <version>${notify-service-listener.version}</version>
         </dependency>
-
-        <!--  Mapstruct  -->
         <dependency>
-            <groupId>org.mapstruct</groupId>
-            <artifactId>mapstruct</artifactId>
-            <version>${mapstruct.version}</version>
+            <groupId>br.com.bessatech.notify</groupId>
+            <artifactId>notify-service-integration</artifactId>
+            <version>${notify-service-integration.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>19.0</version>
         </dependency>
     </dependencies>
 

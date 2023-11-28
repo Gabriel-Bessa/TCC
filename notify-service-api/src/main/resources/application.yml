@@ -4,12 +4,8 @@ spring:
   cache:
     redis:
       time-to-live: 1
-  cloud:
-    stream:
-      bindings:
-        onNotificationReceive-in-0:
-          destination: notification-producer
-          group: notification
 server:
   servlet:
     context-path: /api/notify
+notify:
+  cron: "0 * * * * *"
